@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name matter:</strong>
+  <%= @matter.name_matter %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @matter.price %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
+  <%= @matter.quantity %>
+</p>
+
+<p>
+  <strong>Total inversion:</strong>
+  <%= @matter.total_inversion %>
+</p>
+
+<p>
+  <strong>Provider:</strong>
+  <% @provider.each do |provider| %>
+      <% if (@matter.provider_id.equal? provider.id) %>
+          <%= provider.name_pro %>
+      <%end%>
+  <%end%>
+</p>
+
+<%= link_to 'Edit', edit_matter_path(@matter) %> |
+<%= link_to 'Back', matters_path %>

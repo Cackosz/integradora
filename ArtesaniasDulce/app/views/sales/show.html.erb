@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Piece:</strong>
+  <% @pieces.each do |pieces| %>
+      <% if (@sale.piece_id.equal? pieces.id) %>
+        <td><%= pieces.piece_name %></td>
+    <%end%>
+<%end%>
+</p>
+
+<p>
+  <strong>Sale quantity:</strong>
+  <%= @sale.sale_quantity %>
+</p>
+
+<p>
+  <strong>Total:</strong>
+  <%= @sale.total %>
+</p>
+
+<%= link_to 'Edit', edit_sale_path(@sale) %> |
+<%= link_to 'Back', sales_path %>

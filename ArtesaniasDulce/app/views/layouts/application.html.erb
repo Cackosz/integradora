@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title><%= content_for?(:title) ? yield(:title) : "Iniciar Sesión" %></title>
+
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body>
+  <% if user_signed_in? %>
+
+      <label style="float: right"><b>Bienvenido:</b> <%= current_user.email %> | <%= link_to " Cerrar Sesión",destroy_user_session_path, method: :delete, :style=>"float:right"   %></label>
+  <% end %>
+  <br>
+
+  <% if alert %>
+      <p class="alert alert-danger"><%= alert %></p>
+  <% end %>
+
+    <%= yield %>
+
+  <footer class="footer">
+    <div>
+      <p>©Copyright CloudComputingDH | <a>Terms of Use</a> | <a>Privacy Policy</a></p>
+    </div>
+  </footer>
+
+
+  </body>
+<style>
+  .footer {
+    width: 100%;
+    position: relative;
+    margin: 0;
+
+    display: block;
+    clear: both;
+    text-align: center;
+
+  }
+</style>
+</html>

@@ -1,0 +1,95 @@
+<p></p>
+
+<!-- This is the first modal -->
+<div class="reveal large-3 large-centered" id="exampleModal2" data-reveal>
+
+
+    <section class="login-box-dos">
+      <h5>Registro</h5>
+
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <%= devise_error_messages! %>
+
+          <% for role in User::ROLES %>
+              <%= check_box_tag "user[roles][#{role}]", role, @user.roles.include?(role), {:name => "user[roles][]"}%>
+              <%= label_tag "user_roles_#{role}", role.to_s.humanize %><br />
+          <% end %>
+          <%= hidden_field_tag "user[roles][]", "" %>
+
+          <div class="field">
+            <%= f.label :email %><br />
+            <%= f.email_field :email, autofocus: true %>
+          </div>
+
+          <div class="field">
+            <%= f.label :password %>
+            <% if @minimum_password_length %>
+                <em>(<%= @minimum_password_length %> letras como minimo)</em>
+            <% end %><br />
+            <%= f.password_field :password, autocomplete: "off" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :password_confirmation %><br />
+            <%= f.password_field :password_confirmation, autocomplete: "off" %>
+          </div>
+
+          <div class="actions">
+            <%= f.submit "Registrar", {:data=>"exampleModal2", :class=>"button success large-12 large-centered columns"}%>
+
+          </div>
+      <% end %>
+      <button class="close-button" data-close aria-label="Close reveal" type="button">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </section>
+
+</div>
+
+<p></p>
+
+<!-- This is the first modal -->
+<div class="reveal large-3 large-centered" id="exampleModal2" data-reveal>
+
+
+  <section class="login-box-dos">
+    <h5>Registro</h5>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= devise_error_messages! %>
+
+        <% for role in User::ROLES %>
+            <%= check_box_tag "user[roles][#{role}]", role, @user.roles.include?(role), {:name => "user[roles][]"}%>
+            <%= label_tag "user_roles_#{role}", role.to_s.humanize %><br />
+        <% end %>
+        <%= hidden_field_tag "user[roles][]", "" %>
+
+        <div class="field">
+          <%= f.label :email %><br />
+          <%= f.email_field :email, autofocus: true %>
+        </div>
+
+        <div class="field">
+          <%= f.label :password %>
+          <% if @minimum_password_length %>
+              <em>(<%= @minimum_password_length %> letras como minimo)</em>
+          <% end %><br />
+          <%= f.password_field :password, autocomplete: "off" %>
+        </div>
+
+        <div class="field">
+          <%= f.label :password_confirmation %><br />
+          <%= f.password_field :password_confirmation, autocomplete: "off" %>
+        </div>
+
+        <div class="actions">
+          <%= f.submit "Registrar", :data=>"exampleModal2", :class=>"button success large-12 large-centered columns" %>
+
+        </div>
+    <% end %>
+    <button class="close-button" data-close aria-label="Close reveal" type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </section>
+
+</div>

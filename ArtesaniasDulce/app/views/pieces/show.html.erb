@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Piece name:</strong>
+  <%= @piece.piece_name %>
+</p>
+
+<p>
+  <strong>Piece quantity:</strong>
+  <%= @piece.piece_quantity %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @piece.price %>
+</p>
+
+<p>
+  <strong>Matter name:</strong>
+  <%= @piece.matter_name %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <% @categories.each do |categories| %>
+      <% if (@piece.category_id.equal? categories.id) %>
+        <%= categories.type_category %>
+    <%end%>
+<%end%>
+</p>
+
+<%= link_to 'Edit', edit_piece_path(@piece) %> |
+<%= link_to 'Back', pieces_path %>
