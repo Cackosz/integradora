@@ -1,0 +1,57 @@
+<script>
+  $('#table').dataTable({
+    sPaginationType: 'full_numbers',
+    bJQueryUI: true,
+    dom: 'frtip',
+    aLengthMenu: [[10, 25, 50], [10, 25, "Todo"]],
+    language: {
+      "sProcessing": "Procesando...",
+      "sLengthMenu": "_MENU_",
+      "sZeroRecords": "No se encontraron resultados",
+      "sEmptyTable": "Ningún dato disponible en esta tabla",
+      "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+      "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+      "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+      "sInfoPostFix": "",
+      "sSearch": "",
+      "sUrl": "",
+      "sInfoThousands": ",",
+      "sLoadingRecords": "Cargando...",
+      "oPaginate": {
+        "sFirst": " << ",
+        "sLast": " >> ",
+        "sNext": " > ",
+        "sPrevious": " < "
+      },
+      searchPlaceholder: "Buscar..."
+    }
+  });
+</script>
+
+
+
+<section style="margin-right: 15px; margin-left: 15px;">
+      <table id="table" class="display nowrap" cellspacing="0">
+        <thead>
+        <tr>
+          <th>Empresa</th>
+          <th>Nombre del Proveedor</th>
+
+        </thead>
+        <tfoot>
+        <tr>
+          <th>Empresa</th>
+          <th>Nombre del Proveedor</th>
+        </tr>
+        </tfoot>
+        <tbody>
+        <% @providers.each do |provider| %>
+            <tr>
+              <td><%= provider.name_enterprise %></td>
+              <td><%= provider.name_pro %>  <%= provider.first_name %> <%= provider.last_name %></td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+
+</section>

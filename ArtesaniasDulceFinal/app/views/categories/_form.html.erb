@@ -1,0 +1,14 @@
+<center>
+<section id="formC" style="width: 700px;">
+<%= form_for(@category) do |f| %>
+  <div class="field">
+    <label>Categoria
+    <%= f.text_field :type_category, :id => "category" %>
+    </label>
+  </div>
+  <div class="actions">
+    <%= f.submit  :class => "button expand", :onclick=>'return validarCategory()'%>
+  </div>
+<% end %>
+</section>
+</center>

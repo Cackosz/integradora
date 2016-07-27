@@ -1,0 +1,67 @@
+<center>
+<section id="form" style="width: 700px" class="">
+<%= form_for(@sale) do |f| %>
+    <div class="row">
+      <div class="large-4 columns">
+        <label>Pieza
+          <%= f.collection_select(:piece_id, Piece.all, :id, :piece_name) %>
+
+        </label>
+      </div>
+      <div class="large-4 columns">
+        <label>Cantidad de Piezas
+          <%= f.number_field :sale_quantity, :id => "qtySale"%>
+        </label>
+      </div>
+      <div class="large-4 columns">
+        <label>Total
+          <%= f.text_field :total , :onKeyPress => "return soloNum(event)",:id => "total" %>
+
+        </label>
+      </div>
+      <%= f.submit :class => "button expand", :onclick => "return validar()"%>
+    </div>
+
+<% end %>
+</section>
+</center>
+
+
+<script>
+  function validar() {
+    //obteniendo el valor que se puso en campo text del formulario
+    var qtySale = document.getElementById("qtySale").value;
+    var total = document.getElementById("total").value;
+
+    //la condición
+    if (total.length == 0) {
+      Lobibox.notify('error', {
+        size: 'mini',
+        rounded: true,
+        delayIndicator: true,
+        msg: '¡ERROR!, Ningún campo debe estar vacio.'
+      });
+      $('#total').addClass('red');
+      $('#qtySale').addClass('red');
+      return false;
+    }
+    else {
+    Lobibox.notify('success', {
+      size: 'mini',
+      rounded: true,
+      delayIndicator: true,
+      msg: '¡COMPLETO!, Se ha registrado exitosamente.'
+    });
+    return true;
+    }
+
+
+  }
+
+  function soloNum(e) {
+    var key = window.Event ? e.which : e.keyCode
+    return (key >= 48 && key <= 57)
+  }
+
+
+</script>

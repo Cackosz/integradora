@@ -1,0 +1,72 @@
+<script>
+  $('#table').dataTable({
+    sPaginationType: 'full_numbers',
+    bJQueryUI: true,
+    dom: 'frtip',
+    aLengthMenu: [[10, 25, 50], [10, 25, "Todo"]],
+    language: {
+      "sProcessing": "Procesando...",
+      "sLengthMenu": "_MENU_",
+      "sZeroRecords": "No se encontraron resultados",
+      "sEmptyTable": "Ningún dato disponible en esta tabla",
+      "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+      "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+      "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+      "sInfoPostFix": "",
+      "sSearch": "",
+      "sUrl": "",
+      "sInfoThousands": ",",
+      "sLoadingRecords": "Cargando...",
+      "oPaginate": {
+        "sFirst": " << ",
+        "sLast": " >> ",
+        "sNext": " > ",
+        "sPrevious": " < "
+      },
+      searchPlaceholder: "Buscar..."
+    }
+  });
+</script>
+<p id="notice"><%= notice %></p>
+
+<section style="">
+  <table id="table" class="display nowrap" cellspacing="0">
+    <thead>
+    <tr>
+      <th>Pieza</th>
+      <th>Cantidad</th>
+      <th>Precio</th>
+      <th>Categoria</th>
+    </tr>
+    </thead>
+    <tfoot>
+    <tr>
+      <th>Pieza</th>
+      <th>Cantidad</th>
+      <th>Precio</th>
+      <th>Categoria</th>
+    </tr>
+    </tfoot>
+    <tbody>
+    <% @pieces.each do |piece| %>
+        <tr>
+          <td><%= piece.piece_name %></td>
+          <% if piece.piece_quantity <= 0 %>
+              <td>NO HAY DISPONIBLE</td>
+              <td>NO HAY DISPONIBLE</td>
+          <% else %>
+              <td><%= piece.piece_quantity %></td>
+              <td><%= piece.price %></td>
+          <% end %>
+
+          <% @categories.each do |categories| %>
+              <% if (piece.category_id.equal? categories.id) %>
+                  <td><%= categories.type_category %></td>
+              <% end %>
+          <% end %>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</section>
+

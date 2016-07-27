@@ -1,0 +1,127 @@
+<p></p>
+
+<!-- This is the first modal -->
+<div class="reveal large-3 large-centered" id="exampleModal2" data-reveal>
+
+
+    <section class="login-box-dos">
+      <h5>Registro</h5>
+
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <%= devise_error_messages! %>
+
+          <% for role in User::ROLES %>
+              <%= check_box_tag "user[roles][#{role}]", role, @user.roles.include?(role), {:name => "user[roles][]"}%>
+              <%= label_tag "user_roles_#{role}", role.to_s.humanize %><br />
+          <% end %>
+          <%= hidden_field_tag "user[roles][]", "" %>
+
+          <div class="field">
+            <%= f.label :email %><br />
+            <%= f.email_field :email, autofocus: true %>
+          </div>
+
+          <div class="field">
+            <%= f.label :password %>
+            <% if @minimum_password_length %>
+                <em>(<%= @minimum_password_length %> letras como minimo)</em>
+            <% end %><br />
+            <%= f.password_field :password, autocomplete: "off" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :password_confirmation %><br />
+            <%= f.password_field :password_confirmation, autocomplete: "off" %>
+          </div>
+
+          <div class="actions">
+            <%= f.submit "Registrar", {:id => "send",:class=>"button success large-12 large-centered columns", :onclick => 'return cargaErrorRegistrar()'}%>
+
+          </div>
+      <% end %>
+      <button class="close-button" data-close aria-label="Close reveal" type="button">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </section>
+
+</div>
+
+<script type="text/javascript">
+  function cargaErrorRegistrar() {
+    var email = document.getElementById("user_email").value;
+    var pass = document.getElementById("user_password").value;
+    var passCon = document.getElementById("user_password_confirmation").value;
+
+    if (email.length === 0 || pass.length === 0 || passCon.length === 0) {
+      Lobibox.notify('error', {
+        size: 'mini',
+        rounded: true,
+        delayIndicator: true,
+        msg: '¡ERROR!, Debe llenar los campos'
+      });
+      $('#user_email').addClass('red');
+      $('#user_password').addClass('red');
+      $('#user_password_confirmation').addClass('red');
+
+      return false;
+    }
+    var inter;
+    Lobibox.progress({
+      title: 'Espera un Momento',
+      label: 'Iniciando Sesión...',
+      onShow: function ($this) {
+        var i = 0;
+        inter = setInterval(function () {
+          window.console.log(i);
+          if (i > 100) {
+            inter = clearInterval(inter);
+          }
+          i = i + 0.3;
+          $this.setProgress(i);
+        }, 10);
+      },
+      closed: function () {
+        inter = clearInterval(inter);
+      }
+    });
+    return true;
+  }
+</script>
+<script>
+  $(document).ready(function() {
+    //variables
+    var pass1 = $('[id=user_password]');
+    var pass2 = $('[id=user_password_confirmation]');
+    var confirmacion = "Las contraseñas si coinciden";
+    var longitud = "La contraseña debe estar formada entre 6-10 carácteres (ambos inclusive)";
+    var negacion = "No coinciden las contraseñas";
+    var vacio = "La contraseña no puede estar vacía";
+    //oculto por defecto el elemento span
+    var span = $('<span></span>').insertAfter(pass2);
+    span.hide();
+    //función que comprueba las dos contraseñas
+    function coincidePassword(){
+      var valor1 = pass1.val();
+      var valor2 = pass2.val();
+      //muestro el span
+      span.show().removeClass();
+      //condiciones dentro de la función
+      if(valor1 != valor2){
+        span.text(negacion).addClass('negacion');
+      }
+      if(valor1.length==0 || valor1==""){
+        span.text(vacio).addClass('negacion');
+      }
+      if(valor1.length<6 || valor1.length>10){
+        span.text(longitud).addClass('negacion');
+      }
+      if(valor1.length!=0 && valor1==valor2){
+        span.text(confirmacion).removeClass("negacion").addClass('confirmacion');
+      }
+    }
+    //ejecuto la función al soltar la tecla
+    pass2.keyup(function(){
+      coincidePassword();
+    });
+  });
+</script>

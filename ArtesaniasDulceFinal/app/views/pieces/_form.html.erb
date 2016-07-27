@@ -1,0 +1,30 @@
+<section id="form" style="width: 700px" class="">
+  <%= form_for(@piece) do |f| %>
+      <div class="row">
+        <div class="large-6 columns">
+          <label>Nombre de la Pieza
+            <%= f.text_field :piece_name, :id => "piece" %>
+          </label>
+        </div>
+        <div class="large-2 columns">
+          <label> Cantidad
+            <%= f.number_field :piece_quantity, :id => "pricePieces" %>
+          </label>
+        </div>
+        <div class="large-4 columns">
+          <label>Precio
+            <%= f.text_field :price, :onKeyPress => ("return soloNum(event)"), :id => "price"  %>
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="large-12 columns">
+          <label>Categoria
+            <%= f.collection_select(:category_id, Category.all, :id, :type_category) %>
+            <%= f.submit :class => "button expand", :onclick=>'return validar()'%>
+          </label>
+        </div>
+      </div>
+  <% end %>
+</section>
+

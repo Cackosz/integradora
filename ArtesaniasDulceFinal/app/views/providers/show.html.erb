@@ -1,0 +1,22 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name enterprise:</strong>
+  <%= @provider.name_enterprise %>
+</p>
+
+<p>
+  <strong>Name pro:</strong>
+  <%= @provider.name_pro %> <%= @provider.first_name %>  <%= @provider.last_name %>
+</p>
+<p>
+  <strong>Matter:</strong>
+  <%= @provider.matter %>
+</p>
+
+<p>
+  <strong>Location:</strong>
+  <%= @provider.location %>
+</p>
+
+<%= link_to_modal 'Editar', edit_provider_path(@provider), :class => "button small" %>

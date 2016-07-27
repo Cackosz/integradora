@@ -1,0 +1,68 @@
+<script>
+  $('#table').dataTable({
+    sPaginationType: 'full_numbers',
+    bJQueryUI: true,
+    dom: 'frtip',
+    aLengthMenu: [[5, 25, 50], [5, 25, "Todo"]],
+    language: {
+      "sProcessing": "Procesando...",
+      "sLengthMenu": "_MENU_",
+      "sZeroRecords": "No se encontraron resultados",
+      "sEmptyTable": "Ningún dato disponible en esta tabla",
+      "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+      "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+      "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+      "sInfoPostFix": "",
+      "sSearch": "",
+      "sUrl": "",
+      "sInfoThousands": ",",
+      "sLoadingRecords": "Cargando...",
+      "oPaginate": {
+        "sFirst": " << ",
+        "sLast": " >> ",
+        "sNext": " > ",
+        "sPrevious": " < "
+      },
+      searchPlaceholder: "Buscar..."
+    }
+  });
+</script>
+<p id="notice"><%= notice %></p>
+<section style="">
+  <%= form_tag destroy_multiple_sales_path, method: :delete do %>
+      <%= button_tag(type: "submit", class: "button alert small", style: "float:right") do %>
+          <i class="fi-trash"></i>
+      <% end %>
+      <table id="table" class="display nowrap" cellspacing="0">
+        <thead>
+        <tr>
+          <th class="checkEliminar">Eliminar</th>
+          <th>Pieza</th>
+          <th>Opciones</th>
+        </tr>
+        </thead>
+        <tfoot>
+        <tr>
+          <th class="checkEliminar">Eliminar</th>
+          <th>Pieza</th>
+          <th>Opciones</th>
+        </tr>
+        </tfoot>
+        <tbody>
+        <% @sales.each do |sale| %>
+            <tr>
+              <td style="text-align: center;"> <%= check_box_tag "sales_ids[]", sale.id %></td>
+              <% @pieces.each do |pieces| %>
+                  <% if (sale.piece_id.equal? pieces.id) %>
+                      <td><%= pieces.piece_name %></td>
+                  <%end%>
+              <%end%>
+              <td>
+                <%= link_to_modal 'Editar', edit_sale_path(sale) %>
+              </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+  <% end %>
+</section>

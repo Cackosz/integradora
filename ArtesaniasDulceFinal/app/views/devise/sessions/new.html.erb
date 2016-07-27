@@ -1,0 +1,93 @@
+
+<section style="margin-top: 5%">
+  <!--SLIDER-->
+  <div style="width: 63%; float: left; margin-left: 5%">
+    <ul class="bxslider">
+      <li style=""><%= image_tag("logo.jpg") %></li>
+      <li style=""><%= image_tag("ima1.jpg") %></li>
+      <li style=""><%= image_tag("ima2.jpg") %></li>
+      <li style=""><%= image_tag("ima3.jpg") %></li>
+      <li style=""><%= image_tag("ima4.jpg") %></li>
+    </ul>
+  </div>
+
+
+  <section class="large-3 large-centered" style="float:right; margin-right: 5%">
+    <section class="login-box">
+      <section class="button expand large-12 large-centered columns" style="border-top-left-radius: 10px;
+          border-top-right-radius: 10px;">
+        <h5>Inicio de Sesión</h5>
+
+      </section>
+      <section class="callout secondary">
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+            <div class="field">
+              <%= f.email_field  :email, autofocus: true, placeholder: 'Correo Electrónico', :id => 'email'%>
+            </div>
+
+            <div class="field">
+
+              <%= f.password_field :password, autocomplete: "off", placeholder: 'Contraseña', :id => 'pass' %>
+            </div>
+
+            <% if devise_mapping.rememberable? -%>
+                <div class="field">
+                  <%= f.check_box :remember_me %>
+                  <%= f.label :Recordarme %>
+                </div>
+            <% end -%>
+
+            <div class="actions">
+              <%= f.submit "Iniciar", :class=>"button expand large-12 large-centered columns", :onclick => 'return cargaError()'%>
+            </div>
+            </section>
+            <section class="callout secondary" style="border-bottom-left-radius: 10px; border-bottom-right-radius: 10px">
+              <a data-open="exampleModal2" class="button secondary small-12">Registrar</a>
+              <a data-open="extravioModal" class="button alert small-12">Olvido de Contraseña</a>
+
+            </section>
+
+        <% end %>
+
+
+    </section>
+  </section>
+</section>
+
+<%= render 'layouts/modalRegistrar' %>
+<%= render 'layouts/cambiarPassword' %>
+<script type="text/javascript">
+  function cargaError() {
+    var email = document.getElementById("email").value;
+    var pass = document.getElementById("pass").value;
+    if (email.length == 0 || pass.length == 0 ) {
+      Lobibox.notify('error', {
+        size: 'mini',
+        rounded: true,
+        delayIndicator: true,
+        msg: '¡ERROR!, No puede iniciar sin ingresar los datos'
+      });
+      return false;
+    }
+    var inter;
+    Lobibox.progress({
+      title: 'Espera un Momento',
+      label: 'Iniciando Sesión...',
+      onShow: function ($this) {
+        var i = 0;
+        inter = setInterval(function () {
+          window.console.log(i);
+          if (i > 100) {
+            inter = clearInterval(inter);
+          }
+          i = i + 0.3;
+          $this.setProgress(i);
+        }, 10);
+      },
+      closed: function () {
+        inter = clearInterval(inter);
+      }
+    });
+    return true;
+  }
+</script>

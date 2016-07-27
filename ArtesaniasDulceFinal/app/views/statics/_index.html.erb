@@ -1,0 +1,130 @@
+<div id="container" class="reveal large-3 large-centered secondary" data-reveal>
+  <section class="panel callout radius secondary" style="width: 30%; float: left; margin-left: 30px; margin-right: 10px;">
+    <% @vendido.each do |vendido| %>
+        <section>
+          <%= image_tag 'ventas.png', :style => "float:left; width:60px; height:60px;" %>
+        </section>
+        <section style="margin-top: 10px">
+        <p><h4 style="float: right">Ventas Mensuales</h4></p></br>
+        <h2 style="float: right">$<%= vendido.VENT_TOTAL %></h2>
+        </section>
+
+    <% end %>
+  </section>
+
+  <section class="panel callout radius secondary" style="width: 30%; float: left; margin-right: 10px;">
+    <section>
+      <%= image_tag 'inversion.png', :style => "float:left; width:60px; height:60px;" %>
+    </section>
+    <% @inversion.each do |inversion| %>
+    <section style="margin-top: 10px">
+      <p><h4 style="float: right">Inversión Mensual</h4></p></br>
+      <h2 style="float: right">$<%= inversion.INV_TOTAL %></h2>
+    </section>
+    <% end %>
+
+  </section>
+
+  <section class="panel callout radius secondary" style="width: 30%; float: left">
+    <section>
+      <%= image_tag 'ganancia.png', :style => "float:left; width:60px; height:60px;" %>
+    </section>
+    <% @ganancia.each do |ganancia| %>
+        <section style="margin-top: 10px">
+          <p><h4 style="float: right">Ganancia Mensual</h4></p></br>
+          <h2 style="float: right">$<%= ganancia.ganancia %></h2>
+        </section>
+    <% end %>
+  </section>
+
+<center>
+<div id="productosVendidos"></div>
+</center>
+</div>
+<script type="text/javascript">
+  $(function () {
+
+
+
+// Apply the theme
+    Highcharts.setOptions(Highcharts.theme);
+
+    // Radialize the colors
+    Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, function (color) {
+      return {
+        radialGradient: {
+          cx: 0.5,
+          cy: 0.3,
+          r: 0.7
+        },
+        stops: [
+          [0, color],
+          [1, Highcharts.Color(color).brighten(-0.3).get('rgb')] // darken
+        ]
+      };
+    });
+
+    // Build the chart
+    $('#productosVendidos').highcharts({
+      chart: {
+        plotBackgroundColor: null,
+        plotBorderWidth: null,
+        plotShadow: false,
+        type: 'pie'
+
+      },
+      exportChart: {
+      type: 'application/pdf',
+      filename: 'my-pdf'
+      },
+
+    title: {
+        text: 'Las 5 piezas mas vendidas del Mes'
+      },
+      tooltip: {
+        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+      },
+      plotOptions: {
+        pie: {
+          allowPointSelect: true,
+          cursor: 'pointer',
+          dataLabels: {
+            enabled: true,
+            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+            style: {
+              color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+            },
+            connectorColor: 'silver'
+          }
+        }
+      },
+      series: [{
+        name: 'Brands',
+        data: [
+          <% @statics.each do |statics| %>
+          {
+            <% if statics.cantidad == Statics.maximum("cantidad")%>
+            name: "<%= statics.piece_name %>", y: <%= statics.cantidad %>,
+          sliced: true,
+          selected: true,
+            <% else %>
+            name: "<%= statics.piece_name %>", y: <%= statics.cantidad %>
+            <% end %>
+          },
+          <% end %>
+        ]
+      }]
+    });
+  });
+</script>
+
+<style>
+  #container{
+    width: 850px;
+    height: 650px;
+    margin: auto;
+  }
+  #productosVendidos{
+    margin-top: 150px;
+  }
+</style>

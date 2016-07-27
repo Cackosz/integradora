@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+<body>
+<section>
+<div style="">
+  <ul class="bxsliderMenu" style="height: 600px; width: 600px">
+    <li><%= image_tag ('back1.jpg') %></li>
+    <li><%= image_tag ('back2.jpg') %></li>
+    <li><%= image_tag ('back3.jpg') %></li>
+    <li><%= image_tag ('back4.jpg') %></li>
+    <li><%= image_tag ('back5.jpg') %></li>
+  </ul>
+</div>
+
+<div id="viewport">
+  <div id="card">
+    <div id="front" style="margin-top: 100px;" >
+      <!--front content start-->
+      <div class="power" onclick="return bienvenido()"></div>
+      <div class="powerdown" ></div>
+
+      <!--front content end-->
+    </div>
+    <div id="back" style="">
+      <ul id="" class="mainmenu">
+        <li><i class="fi-torso iconos"></i><span style="font-size: 10px"><%= current_user.email %></span></li>
+        <ul class="submenu">
+          <div class="expand-triangle"><%= image_tag 'expand.png' %></div>
+          <li><span><%= link_to 'Cerrar Sesión', destroy_user_session_path, method: :delete, :class=>'tag', :onclick => "return cierreSesion()" %></span></li>
+        </ul>
+        <li><i class="fi-paint-bucket iconos"></i><span>Temas</span></li>
+        <ul class="submenu">
+          <div class="expand-triangle"><%= image_tag 'expand.png' %></div>
+          <li id="theme1" class="chosen"><span class="tag">Azul</span></li>
+          <li id="theme2"><span class="tag">Verde</span></li>
+        </ul>
+
+        <li><i class="iconos fi-puzzle"></i><span>Piezas</span></li>
+        <ul class="submenu">
+          <div class="expand-triangle"><%= image_tag 'expand.png' %></div>
+          <li><span><%= link_to_modal 'Agregar Nuevo', new_piece_path, :class=>'tag' %></span></li>
+          <li><span><%= link_to_modal 'Consultar Piezas', pieces_path, :class=>'tag' %></span></li>
+          <li><span><%= link_to_modal 'Gestionar Piezas', pieces_gestion_path, :class=>'tag' %></span></li>
+        </ul>
+        <li><i class="fi-shopping-cart large iconos"></i><span>Ventas</span></li>
+        <ul class="submenu">
+          <div class="expand-triangle"><%= image_tag 'expand.png' %></div>
+          <li><span><%= link_to_modal 'Agregar Nuevo', new_sale_path, :class=>'tag' %></span></li>
+          <li><span><%= link_to_modal 'Consultar Ventas', sales_path, :class=>'tag' %></span></li>
+          <li><span><%= link_to_modal 'Gestionar Ventas', sales_gestion_path, :class=>'tag' %></span></li>
+        </ul>
+        <li><i class="fi-list-thumbnails iconos"></i><span>Categorias</span></li>
+        <ul class="submenu">
+          <div class="expand-triangle"><%= image_tag 'expand.png' %></div>
+          <li><span><%= link_to_modal 'Agregar Nuevo', new_category_path, :class=>'tag', :id => "cat" %></span></li>
+          <li><span><%= link_to_modal 'Consultar Categorias', categories_path, :class=>'tag' %></span></li>
+        </ul>
+        <li><i class="fi-social-dropbox iconos"></i><span>Materia Prima</span></li>
+        <ul class="submenu">
+          <div class="expand-triangle"><%= image_tag 'expand.png' %></div>
+          <li><span><%= link_to_modal 'Agregar Nuevo', new_matter_path, :class=>'tag' %></span></li>
+          <li><span><%= link_to_modal 'Consultar Materias', matters_path, :class=>'tag' %></span></li>
+          <li><span><%= link_to_modal 'Gestionar Materia', matters_gestion_path, :class=>'tag' %></span></li>
+        </ul>
+        <li><i class="fi-torsos-all iconos"></i><span>Proveedor</span></li>
+        <ul class="submenu">
+          <div class="expand-triangle"><%= image_tag 'expand.png' %></div>
+          <li><span><%= link_to_modal 'Agregar Nuevo', new_provider_path, :class=>'tag' %></span></li>
+          <li><span><%= link_to_modal 'Consultar Proveedores', providers_path, :class=>'tag' %></span></li>
+          <li><span><%= link_to_modal 'Gestionar Proveedor', providers_gestion_path, :class=>'tag' %></span></li>
+        </ul>
+        <li><i class="fi-graph-bar iconos"></i><span>Estadisticas</span></li>
+        <ul class="submenu">
+          <div class="expand-triangle"><%= image_tag 'expand.png' %></div>
+          <li><span class='tag'><%= link_to(raw("<a data-open='container' class='tag'>Consultar</a>"), statics_index_path) %></span></li>
+        </ul>
+        <li><i class="fi-comments iconos"></i><span>Contácto</span></li>
+        <ul class="submenu">
+          <div class="expand-triangle"><%= image_tag 'expand.png' %></div>
+          <li><span class='tag'>Enviar Corréo</span></li>
+          <li><span class='tag'>Facebook</span></li>
+          <li><span class='tag'>Twitter</span></li>
+          <li><span class='tag'>Sitio Web</span></li>
+        </ul>
+      </ul>
+      <!--back content end-->
+    </div>
+  </div>
+</div>
+</section>
+<section>
+  <%= render 'statics/index' %>
+</section>
+</body>
+<style>
+  .tag{
+    color: #fff;
+    text-decoration: none;
+    font-size: 12px;
+  }
+  .tag:hover{
+    background-color: transparent;
+    color: #fff;
+  }
+  .tag:visited{
+    color: #fff;
+    text-decoration: none;
+    font-size: 12px;
+  }
+</style>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36251023-1']);
+  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<script>
+  function bienvenido() {
+    Lobibox.notify('info', {
+      size: 'mini',
+      title: '',
+      position: 'top left',
+      msg: '!Bienvenido¡ <%= current_user.email %>'
+    });
+  }
+</script>
+<script>
+  function cierreSesion() {
+    Lobibox.notify('info', {
+      size: 'mini',
+      title: '',
+      position: 'top left',
+      msg: '!Hasta luego¡ <%= current_user.email %>'
+    });
+  }
+</script>
+<script>
+  $(document).ready(function() {
+    $("#cat").click(function () {
+      $('#formC').fadeIn();
+    });
+  });
+</script>
+</html>
